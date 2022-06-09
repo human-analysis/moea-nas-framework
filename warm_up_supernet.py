@@ -15,20 +15,13 @@ from train.trainer import Trainer, SuperNetTrainer
 from search.search_spaces.ofa_search_space import OFAMobileNetV3SearchSpace
 
 parser = argparse.ArgumentParser(description='Warm-up Supernet Training')
-parser.add_argument('--dataset', default='cifar10', type=str, metavar='DATASET',
-                    help='Name of dataset to train (default: "cifar10")')
-parser.add_argument('--data', default='~/datasets', type=str, metavar='DATA',
-                    help='Path to the dataset images')
-parser.add_argument('--valid-size', type=int, default=None, metavar='VS',
-                    help='number of images separated from training set to guild NAS (default: 5000)')
-parser.add_argument('--phase', type=int, default=1, metavar='P',
-                    help='which training phase to run (default: 1)')
-parser.add_argument('--train-batch-size', type=int, default=96, metavar='TRBS',
-                    help='Training batch size')
-parser.add_argument('--test-batch-size', type=int, default=100, metavar='TSBS',
-                    help='Testing batch size')
-parser.add_argument('--save', default='.tmp', type=str, metavar='SAVE',
-                    help='path to dir for saving results')
+parser.add_argument('--dataset', default='cifar10', type=str, metavar='DATASET', help='Name of dataset to train (default: "cifar10")')
+parser.add_argument('--data', default='/home/vishnu/datastore/processed/', type=str, metavar='DATA', help='Path to the dataset images')
+parser.add_argument('--valid-size', type=int, default=None, metavar='VS', help='number of images separated from training set to guild NAS (default: 5000)')
+parser.add_argument('--phase', type=int, default=1, metavar='P', help='which training phase to run (default: 1)')
+parser.add_argument('--train-batch-size', type=int, default=96, metavar='TRBS', help='Training batch size')
+parser.add_argument('--test-batch-size', type=int, default=100, metavar='TSBS', help='Testing batch size')
+parser.add_argument('--save', default='.tmp', type=str, metavar='SAVE', help='path to dir for saving results')
 args = parser.parse_args()
 
 # dataset related settings

@@ -17,18 +17,12 @@ from search.search_spaces.ofa_search_space import OFAMobileNetV3SearchSpace
 
 
 parser = argparse.ArgumentParser(description='Warm-up Supernet Training')
-parser.add_argument('--dataset', default='cifar10', type=str, metavar='DATASET',
-                    help='Name of dataset to train (default: "cifar10")')
-parser.add_argument('--data', default='~/datasets', type=str, metavar='DATA',
-                    help='Path to the dataset images')
-parser.add_argument('--objs', default='acc&flops', type=str, metavar='OBJ',
-                    help='which objectives to optimize, separated by "&"')
-parser.add_argument('--valid-size', type=int, default=None, metavar='VS',
-                    help='number of images separated from training set to guild NAS (default: 5000)')
-parser.add_argument('--save', default='.tmp', type=str, metavar='SAVE',
-                    help='path to dir for saving results')
-parser.add_argument('--resume', default=None, type=str, metavar='RESUME',
-                    help='path to dir for resume of search')
+parser.add_argument('--dataset', default='cifar10', type=str, metavar='DATASET', help='Name of dataset to train (default: "cifar10")')
+parser.add_argument('--data', default='/home/vishnu/datastore/processed/', type=str, metavar='DATA', help='Path to the dataset images')
+parser.add_argument('--objs', default='acc&flops', type=str, metavar='OBJ', help='which objectives to optimize, separated by "&"')
+parser.add_argument('--valid-size', type=int, default=None, metavar='VS', help='number of images separated from training set to guild NAS (default: 5000)')
+parser.add_argument('--save', default='.tmp', type=str, metavar='SAVE', help='path to dir for saving results')
+parser.add_argument('--resume', default=None, type=str, metavar='RESUME', help='path to dir for resume of search')
 args = parser.parse_args()
 
 # dataset related settings

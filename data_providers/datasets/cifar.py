@@ -9,7 +9,7 @@ import torch.utils.data as data
 # additional CIFAR-10 data first introduced in the following paper
 # https://arxiv.org/pdf/1806.00451.pdf
 # Data downloaded from https://github.com/modestyachts/CIFAR-10.1
-class AdditioanlCIFAR10(data.Dataset):
+class AdditionalCIFAR10(data.Dataset):
 
     new_test_data = 'cifar10.1_v6_data.npy'
     new_test_labels = 'cifar10.1_v6_labels.npy'
