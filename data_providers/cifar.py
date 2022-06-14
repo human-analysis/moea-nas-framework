@@ -166,8 +166,8 @@ class CIFAR10DataProvider(DataProvider):
         return dataset
 
     def valid_dataset(self, _transforms):
-        from data_providers.datasets.cifar import AdditioanlCIFAR10
-        dataset = AdditioanlCIFAR10(root=self.valid_path, transform=_transforms)
+        from data_providers.datasets.cifar import AdditionalCIFAR10
+        dataset = AdditionalCIFAR10(root=self.valid_path, transform=_transforms)
         return dataset
 
     def test_dataset(self, _transforms):
@@ -184,7 +184,7 @@ class CIFAR10DataProvider(DataProvider):
     @property
     def valid_path(self):
         # return os.path.join(self.save_path, 'train')
-        return os.path.join(self.save_path, 'Additional-CIFAR-10')
+        return os.path.join(self.save_path, 'cifar10.1/')
 
     @property
     def test_path(self):

@@ -70,19 +70,19 @@ We now need to first train the full capacity supernets, which serve as *teacher*
 
 ```python
 # for width multiplier 1.0 supernet
-python warm_up_supernet.py --dataset cifar10 --data /path/to/cifar10/data --phase 1 --save $Exp_dir 
+python3 warm_up_supernet.py --dataset cifar10 --data /path/to/data --phase 1 --save $Exp_dir 
 ```
 - Takes ~150 seconds per epoch for 100 epochs. You should find the checkpoint and log files stored in ``$Exp_dir/cifar10/supernet/ofa_mbv3_d4_e6_k7_w1.0/``
 
 ```python
 # for width multiplier 1.2 supernet
-python warm_up_supernet.py --dataset cifar10 --data /path/to/cifar10/data --phase 2 --save $Exp_dir 
+python3 warm_up_supernet.py --dataset cifar10 --data /path/to/data --phase 2 --save $Exp_dir 
 ```
 - Takes ~210 seconds per epoch for 100 epochs. You should find the checkpoint and log files stored in ``$Exp_dir/cifar10/supernet/ofa_mbv3_d4_e6_k7_w1.2/``
 
 ```python
 # warm-up supernet by uniform sampling
-python warm_up_supernet.py --dataset cifar10 --data /path/to/cifar10/data --phase 3 --save $Exp_dir 
+python3 warm_up_supernet.py --dataset cifar10 --data /path/to/data --phase 3 --save $Exp_dir 
 ```
 - Takes ~8 mins per epoch for 150 epochs. You should find the checkpoint and log files stored in ``$Exp_dir/cifar10/supernet/``
 
@@ -91,6 +91,7 @@ python warm_up_supernet.py --dataset cifar10 --data /path/to/cifar10/data --phas
 The following line execute MsuNAS:
 ```python
 # warm-up supernet by uniform sampling
-python run_msunas.py --dataset cifar10 --data /path/to/cifar10/data --save --save $Exp_dir 
+# for cifar10, make sure the cifar10.1 folder is present in /path/to/data
+python3 run_msunas.py --dataset cifar10 --data /path/to/data --save $Exp_dir 
 ```
 - Takes ~25-28 mins for generation for searching (aux single-level problem + subset selection + re-evaluate archive) + 1 hour per generation for supernet adaptation. 
