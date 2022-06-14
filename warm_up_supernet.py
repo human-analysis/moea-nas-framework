@@ -22,11 +22,10 @@ parser.add_argument('--phase', type=int, default=1, metavar='P', help='which tra
 parser.add_argument('--train-batch-size', type=int, default=96, metavar='TRBS', help='Training batch size')
 parser.add_argument('--test-batch-size', type=int, default=100, metavar='TSBS', help='Testing batch size')
 parser.add_argument('--save', default='.tmp', type=str, metavar='SAVE', help='path to dir for saving results')
+parser.add_argument('--debug', type=bool, default=False, help='set flag to debug')
 args = parser.parse_args()
 
 # dataset related settings
-# args.train_batch_size = 96  # input batch size for training
-# args.test_batch_size = 100  # input batch size for testing
 args.image_sizes = [192, 224, 256]
 args.workers = 4
 
@@ -167,26 +166,25 @@ def main():
         teacher = teacher.cuda()
 
         distributions = None
-        # # construct the distribution, just for debug
-        # import json
-        # from search.algorithms.evo_nas import EvoNAS
-        # from search.algorithms.utils import distribution_estimation, rank_n_crowding_survival
-        #
-        # archive = json.load(open(os.path.join(
-        #     pathlib.Path(__file__).parent.resolve(),
-        #     "tmp/MobileNetV3SearchSpaceNSGANetV2-acc&flops-lgb-n_doe@100-n_iter@8-max_iter@30/"
-        #     "iter_30/archive.json"), 'r'))
-        # archs = [m['arch'] for m in archive]
-        # X = search_space.encode(archs)
-        # F = np.array(EvoNAS.get_attributes(archive, _attr='err&flops'))
-        #
-        # print(X.shape)
-        # print(F.shape)
-        #
-        # sur_X = rank_n_crowding_survival(X, F, n_survive=150)
-        # distributions = []
-        # for j in range(X.shape[1]):
-        #     distributions.append(distribution_estimation(sur_X[:, j]))
+        if args.debug:
+            # construct the distribution, just for debugging
+            import json
+            from search.algorithms.evo_nas import EvoNAS
+            from search.algorithms.utils import distribution_estimation, rank_n_crowding_survival
+            
+            archive = json.load(open(os.path.join(os.path.join(args.save, "MobileNetV3SearchSpaceNSGANetV2-acc&flops-lgb-n_doe@100-n_iter@8-max_iter@30/"),
+                                     "iter_30/archive.json"), 'r'))
+            archs = [m['arch'] for m in archive]
+            X = search_space.encode(archs)
+            F = np.array(EvoNAS.get_attributes(archive, _attr='err&flops'))
+            
+            print(X.shape)
+            print(F.shape)
+            
+            sur_X = rank_n_crowding_survival(X, F, n_survive=150)
+            distributions = []
+            for j in range(X.shape[1]):
+                distributions.append(distribution_estimation(sur_X[:, j]))
 
         # define the trainer
         trainer = SuperNetTrainer(supernet, teacher, search_space, args.epochs, args.lr, data_provider, cur_epoch=0,
@@ -201,7 +199,6 @@ def main():
 
     with open(os.path.join(args.save, 'args.yaml'), 'w') as f:
         f.write(args_text)
-
     return
 
 

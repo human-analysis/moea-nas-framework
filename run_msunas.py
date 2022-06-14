@@ -136,7 +136,6 @@ def main():
 
     with open(os.path.join(args.save, 'args.yaml'), 'w') as f:
         f.write(args_text)
-
     return
 
 
